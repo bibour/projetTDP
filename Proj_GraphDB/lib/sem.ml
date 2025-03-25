@@ -60,9 +60,65 @@ let create_node v lb (State(g, tab, mn)) =
 
 
 (* TODO: complete following definition *)
-let exec_instr s = function
-  | IActOnNode (CreateAct, v, lb) -> create_node v lb s 
-  | _ -> s
+let exec_instr (State (graph, table, next_id) as state) instr =
+  match instr with
+  | IActOnNode (CreateAct, v, lb) ->
+      if Hashtbl.mem table v then state
+      else
+        let id = next_id in
+        Hashtbl.add table v id;
+        let graph' = create_node graph id lb in
+        State (graph', table, next_id + 1)
+
+  | IActOnNode (MatchAct, v, lb) ->
+      (* Match ne modifie pas le graphe, mais dans une vraie version 
+         tu pourrais récupérer l'ID correspondant au label *)
+      state  (* À adapter selon ce que "Match" fait *)
+
+  | IActOnRel (CreateAct, v1, lb, v2) ->
+      if Hashtbl.mem table v1 && Hashtbl.mem table v2 then
+        let id1 = Hashtbl.find table v1 in
+        let id2 = Hashtbl.find table v2 in
+        let graph' = create_rel graph id1 lb id2 in
+        State (graph', table, next_id)
+      else state
+
+  | IActOnRel (MatchAct, v1, lb, v2) ->
+      (* Comme pour MatchAct sur Node, si besoin d'un effet => l'ajouter *)
+      state
+
+  | IDeleteNode v ->
+      if Hashtbl.mem table v then
+        let id = Hashtbl.find table v in
+        Hashtbl.remove table v;
+        let graph' = delete_node graph id in
+        State (graph', table, next_id)
+      else state
+
+  | IDeleteRel (v1, lb, v2) ->
+      if Hashtbl.mem table v1 && Hashtbl.mem table v2 then
+        let id1 = Hashtbl.find table v1 in
+        let id2 = Hashtbl.find table v2 in
+        let graph' = delete_rel graph id1 lb id2 in
+        State (graph', table, next_id)
+      else state
+
+  | IReturn vars ->
+      (* Ici, soit tu ignores (car RETURN sert juste à afficher),
+         soit tu stockes quelque part le résultat si besoin *)
+      state
+
+  | IWhere expr ->
+      (* WHERE va filtrer dans une exécution d'un bloc ou d'un programme complet,
+         mais seul, il n'a pas d'effet sur l'état *)
+      state
+
+  | ISet (v, field, expr) ->
+      if Hashtbl.mem table v then
+        let id = Hashtbl.find table v in
+        let graph' = set_field graph id field expr in
+        State (graph', table, next_id)
+      else state
   
 
 let exec (NormProg(_tps, NormQuery(instrs))) = 

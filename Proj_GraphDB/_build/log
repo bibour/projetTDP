@@ -1,10 +1,11 @@
-# dune exec Proj_GraphDB f test/tiny.q
+# dune build
 # OCAMLPARAM: unset
 # Shared cache: enabled-except-user-rules
-# Shared cache location: /home/dcarr00/.cache/dune/db
+# Shared cache location:
+# C:\Users\damie\AppData\Local\Microsoft\Windows\INetCache\dune\db
 # Workspace root:
-# "/home/dcarr00/T\195\169l\195\169chargements/proj_graphdb/Proj_GraphDB"
-# Auto-detected concurrency: 12
+# "C:\\Users\\damie\\OneDrive\\Bureau\\TDP\\projetTDP\\Proj_GraphDB"
+# Auto-detected concurrency: 8
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -14,4 +15,12 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ /usr/bin/ocamlc.opt -config > /tmp/dune_841d85_output
+$ C:\Users\damie\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\damie\AppData\Local\Temp\dune_bda078_output
+# Promoting "_build/default/Proj_GraphDB.opam" to "Proj_GraphDB.opam"
+$ (cd _build/default && C:\Users\damie\AppData\Local\opam\default\bin\ocamllex.exe -q -o lib/lexer.ml lib/lexer.mll)
+$ (cd _build/.sandbox/2ed78a552fefcb79749374adbaf9a3a7/default && C:\Users\damie\AppData\Local\opam\default\bin\menhir.exe lib/parser.mly --base lib/parser --infer-write-query lib/parser__mock.ml.mock)
+> File "lib/parser.mly", line 8, characters 16-18:
+> Warning: the token LE is unused.
+$ (cd _build/default && C:\Users\damie\AppData\Local\opam\default\bin\ocamlc.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -bin-annot-occurrences -I test/.test_Proj_GraphDB.eobjs/byte -no-alias-deps -opaque -o test/.test_Proj_GraphDB.eobjs/byte/dune__exe__Test_Proj_GraphDB.cmi -c -intf test/test_Proj_GraphDB.mli)
+$ (cd _build/default && C:\Users\damie\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I test/.test_Proj_GraphDB.eobjs/byte -I test/.test_Proj_GraphDB.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.test_Proj_GraphDB.eobjs/native/dune__exe__Test_Proj_GraphDB.cmx -c -impl test/test_Proj_GraphDB.ml)
+$ (cd _build/default && C:\Users\damie\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/test_Proj_GraphDB.exe test/.test_Proj_GraphDB.eobjs/native/dune__exe__Test_Proj_GraphDB.cmx)
