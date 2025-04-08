@@ -21,16 +21,90 @@ let add_var vn t (env:environment) =
 let remove_var vn env = 
   {env with bindings = List.remove_assoc vn env.bindings}
 
+
+
+
+
+
+
+
+
 (* TODO: add more auxiliary functions here *)
 
+(*
+
+(*renvoie le type de noeud associé à la variable vn dans l'environnement env*)
+let get_node_type env vn= List.assoc_opt vn env.bindings
+
+(*prend (DBG(ntdecls,_)) contenant une liste de déclarations de nœuds et un type de nœud (nt), et cherche dans la liste ntdecls celle qui correspond à ce type*)
+let get_node_decl (DBG(ntdecls,_)) nt= List.find_opt (fun (DBN(n,_))->n=nt) ntdecls
+
+(*cherche le type d'un attribut attrib dans la déclaration d'un nœud*)
+let attrib_tp (DBN(_,attrib)) fn= List.assoc_opt fn attrib
+
+*)
+
+(*ectrait les types de noeud de la liste des déclarations*)
+let nt_list ntdecls= (List.map (fun (DBN(n, _)) -> n) ntdecls)
+
+let rt_list rtdecls=(List.map(fun(DBR(n1,r,n2))->(n1,r,n2)) rtdecls)
+
+(* retoçurne true si il n'y a pas de doublons dans la liste*)
+let rec no_doublons = function
+| [] -> true
+| (x :: xs) -> not (List.mem x xs) && (no_doublons xs);;
+
+
+(* vérifie que les types de noeuds sont uniques dans la liste de leurs déclarations *)
+let node_type_unique ntdecls = 
+no_doublons (nt_list ntdecls)
+
+(* vérifie que les relations sont uniques dans la liste de leurs déclarations *)
+let relation_type_unique rtdecls=
+no_doublons(rt_list rtdecls)
+
+
+
+
+
+
+
+
+
 (* TODO: fill in details *)
-let check_graph_types (DBG (ntdecls, rtdecls)) = Result.Ok ()
+
+(*on veut que check_graph_types vérifie que chaque noeud est unique ET que chaque relation soit entre des types de noeudds existants*)
+let check_graph_types (DBG (ntdecls, rtdecls)) = 
+  (*On vérifie si il n'y à pas de doublons dans les types de noeuds et les relations sinon on renvoie une erreur*)
+    if not(node_type_unique ntdecls) then Result.Error " Doublons dans les déclaratiosn de types de noeuds"
+    else if not(relation_type_unique rtdecls) then Result.Error " Doublons dans les déclaratiosn de relations"
+  (* vérification de chaque relation, une erreur est renvoyée dès qu'une relation référence un type non déclaré *)
+    else let liste_noeuds = nt_list ntdecls in
+      let rec check_relations = function
+    | [] -> None
+    | DBR(n1, r, n2) :: rest ->
+        if not(List.mem n1 liste_noeuds) then
+          Some ("Pour la relation (:"^n1^") -[:"^r^"]-> (:"^n2^"), ce noeud n'est pas déclaré : " ^n1)
+        else if not(List.mem n2 (liste_noeuds)) then
+          Some ("Pour la relation (:"^n1^") -[:"^r^"]-> (:"^n2^"), ce noeud n'est pas déclaré : " ^n2)
+        else
+          check_relations rest in
+          match check_relations rtdecls with
+          |Some erreur -> Result.Error erreur
+          |_ -> Result.Ok (DBG(ntdecls,rtdecls))
+  
+
+
+
 
 (* TODO: fill in details *)
 let rec tp_expr env = function
-  Const v -> IntT
-| AttribAcc (vn, fn) -> IntT
-| BinOp (bop, e1, e2) -> tp_expr env e1
+  Const v -> (match v with
+      |BoolV _ -> BoolT
+      |StringV _-> StringT
+      |IntV _ -> IntT)
+  | AttribAcc (vn, fn) -> IntT
+  | BinOp (bop, e1, e2) -> tp_expr env e1
 
 (* check expression e with expected type et in environment env *)
 let check_expr e et env : tc_result = 
@@ -73,3 +147,13 @@ let typecheck continue (NormProg(gt, NormQuery instrs) as np) =
                         failwith "stopped"
   | _ -> typecheck_instructions continue gt instrs np
   
+
+
+
+let test_types =  
+    DBG ([( DBN ("P", [("nom", Lang. StringT ); ("age", Lang.IntT )]));
+          (DBN ("E", [("nom", Lang. StringT ); ("pme", Lang. BoolT )]))] ,
+      [( DBR ("P", "ami", "P"));
+       (DBR ("P", "emp", "E"));
+        (DBR ("E", "f", "E"))]) ;;
+
