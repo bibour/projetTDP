@@ -60,9 +60,8 @@ let create_node v lb (State(g, tab, mn)) =
 
 
 (* TODO: complete following definition *)
-let exec_instr s = function
-  | IActOnNode (CreateAct, v, lb) -> create_node v lb s 
-  | _ -> s
+let exec_instr (State (graph, table, next_id) as state) instr =
+      state;;
   
 
 let exec (NormProg(_tps, NormQuery(instrs))) = 
