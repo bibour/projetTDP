@@ -49,6 +49,7 @@ val xv_separated_list_COMMA_attrib_decl_ : Lang.attrib_decl list
 val xv_separated_list_COMMA_attrib_assign_pattern_ :
   (string * string * Lang.expr) list
 val xv_separated_list_COMMA_IDENTIFIER_ : string list
+val xv_rpattern : string * string * string
 val xv_relTpDecl : (string, string) Graphstruct.db_rel
 val xv_query : Lang.query
 val xv_prog : Lang.prog
@@ -70,7 +71,9 @@ val xv_list_tpDecl_ :
   Either.t list
 val xv_list_clause_ : Lang.clause list
 val xv_expr : Lang.expr
+val xv_delete_rpattern : (string * string * string) list
 val xv_delete_pattern : Lang.delete_pattern
+val xv_delete_npattern : string list
 val xv_clause : Lang.clause
 val xv_attrib_declList : Lang.attrib_decl list
 val xv_attrib_decl : Lang.attrib_decl

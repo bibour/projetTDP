@@ -1,9 +1,11 @@
-# dune exec Proj_GraphDB f test/tiny.q
+# C:\Users\benoi\AppData\Local\opam\default\bin\dune.exe exec Proj_GraphDB f test/entreprise.q
 # OCAMLPARAM: unset
 # Shared cache: enabled-except-user-rules
-# Shared cache location: /home/dcarr00/.cache/dune/db
-# Workspace root: /home/dcarr00/projetTDP/Proj_GraphDB
-# Auto-detected concurrency: 12
+# Shared cache location:
+# C:\Users\benoi\AppData\Local\Microsoft\Windows\INetCache\dune\db
+# Workspace root:
+# "C:\\Users\\benoi\\Desktop\\INFORMATIQUE\\L3_enjambement\\S6\\TYPES_PREUVE\\projetTDP\\Proj_GraphDB"
+# Auto-detected concurrency: 8
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -13,4 +15,14 @@
 #  ; build_dir = In_build_dir "default"
 #  ; instrument_with = []
 #  }
-$ /usr/bin/ocamlc.opt -config > /tmp/dune_3746a2_output
+$ C:\Users\benoi\AppData\Local\opam\default\bin\ocamlc.opt.exe -config > C:\Users\benoi\AppData\Local\Temp\dune_9ab787_output
+$ (cd _build/.sandbox/4c66d4a273402935e2d69113e9f1279d/default && C:\Users\benoi\AppData\Local\opam\default\bin\menhir.exe lib/parser.mly --base lib/parser --infer-write-query lib/parser__mock.ml.mock)
+$ (cd _build/.sandbox/96e2674071a38dfc842b60b1db481eb3/default && .ppx\0bb5094b13567c3c4e1ee33245b80e63\ppx.exe --cookie "library-name=\"Proj_GraphDB\"" -o lib/parser__mock.ml.pp.mock --impl lib/parser__mock.ml.mock -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && C:\Users\benoi\AppData\Local\opam\default\bin\ocamldep.opt.exe -modules -impl lib/parser__mock.ml.pp.mock) > _build/default/lib/.Proj_GraphDB.objs/parser__mock.impl.d
+$ (cd _build/.sandbox/4ef8a51533a1f388bfc79b00345a4881/default && C:\Users\benoi\AppData\Local\opam\default\bin\ocamlc.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -8-27-32-39 -g -I lib/.Proj_GraphDB.objs/byte -I C:\Users\benoi\AppData\Local\opam\default\lib\ocamlgraph -I C:\Users\benoi\AppData\Local\opam\default\lib\ppx_deriving -I C:\Users\benoi\AppData\Local\opam\default\lib\ppx_deriving/runtime -I C:\Users\benoi\AppData\Local\opam\default\lib\stdlib-shims -open Proj_GraphDB -short-paths -i -impl lib/parser__mock.ml.pp.mock) > _build/.sandbox/4ef8a51533a1f388bfc79b00345a4881/default/lib/parser__mock.mli.inferred
+$ (cd _build/.sandbox/5516ecae06df695e3ce05ff746f2a29b/default && C:\Users\benoi\AppData\Local\opam\default\bin\menhir.exe --explain lib/parser.mly --base lib/parser --infer-read-reply lib/parser__mock.mli.inferred)
+$ (cd _build/.sandbox/eb59f0c4dc16867cf913852d4a7537a6/default && .ppx\0bb5094b13567c3c4e1ee33245b80e63\ppx.exe --cookie "library-name=\"Proj_GraphDB\"" -o lib/parser.pp.ml --impl lib/parser.ml -corrected-suffix .ppx-corrected -diff-cmd - -dump-ast)
+$ (cd _build/default && C:\Users\benoi\AppData\Local\opam\default\bin\ocamldep.opt.exe -modules -impl lib/parser.pp.ml) > _build/default/lib/.Proj_GraphDB.objs/proj_GraphDB__Parser.impl.d
+$ (cd _build/default && C:\Users\benoi\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -8-27-32-39 -g -I lib/.Proj_GraphDB.objs/byte -I lib/.Proj_GraphDB.objs/native -I C:\Users\benoi\AppData\Local\opam\default\lib\ocamlgraph -I C:\Users\benoi\AppData\Local\opam\default\lib\ppx_deriving -I C:\Users\benoi\AppData\Local\opam\default\lib\ppx_deriving/runtime -I C:\Users\benoi\AppData\Local\opam\default\lib\stdlib-shims -intf-suffix .ml -no-alias-deps -opaque -open Proj_GraphDB -o lib/.Proj_GraphDB.objs/native/proj_GraphDB__Parser.cmx -c -impl lib/parser.pp.ml)
+$ (cd _build/default && C:\Users\benoi\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -8-27-32-39 -g -a -o lib/Proj_GraphDB.cmxa lib/.Proj_GraphDB.objs/native/proj_GraphDB.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Graphstruct.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Lang.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Instr.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Typing.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Sem.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Parser.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Lexer.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Display.cmx lib/.Proj_GraphDB.objs/native/proj_GraphDB__Interf.cmx)
+$ (cd _build/default && C:\Users\benoi\AppData\Local\opam\default\bin\ocamlopt.opt.exe -w @1..3@5..28@31..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -8-27-32 -g -o bin/main.exe C:\Users\benoi\AppData\Local\opam\default\lib\stdlib-shims\stdlib_shims.cmxa C:\Users\benoi\AppData\Local\opam\default\lib\ocamlgraph\graph.cmxa C:\Users\benoi\AppData\Local\opam\default\lib\ppx_deriving/runtime\ppx_deriving_runtime.cmxa lib/Proj_GraphDB.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)

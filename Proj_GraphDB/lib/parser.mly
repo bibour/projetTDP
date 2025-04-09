@@ -57,14 +57,22 @@ npattern:
 | LPAREN; v = IDENTIFIER; COLON; t = IDENTIFIER; RPAREN { DeclPattern(v, t) }
 | LPAREN; v = IDENTIFIER; RPAREN { VarRefPattern(v) }
 
-delete_pattern:
-| n = separated_list(COMMA, IDENTIFIER) { DeleteNodes n}
-/*| r = separated_list(COMMA, rpattern) { DeleteRels r }*/
+delete_npattern:
+  | n = IDENTIFIER { [n] }
+  | n = IDENTIFIER; COMMA; ns = delete_npattern { n :: ns }
 
-/*
+delete_rpattern:
+  | r = rpattern { [r] }
+  | r = rpattern; COMMA; rs = delete_rpattern { r :: rs }
+
+delete_pattern:
+  | delete_npattern { DeleteNodes $1 }
+  | delete_rpattern  { DeleteRels $1 }
+
+
 rpattern:
 v1 = IDENTIFIER; SUB; LBRACKET; COLON; label = IDENTIFIER; RBRACKET; ARROW; v2 = IDENTIFIER { (v1, label, v2) }
-*/
+
 attrib_assign_pattern:
 v = IDENTIFIER; DOT; attr = IDENTIFIER; EQ; e = expr { (v, attr, e) }
 

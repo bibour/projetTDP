@@ -1,1 +1,4 @@
-../../../../default/Proj_GraphDB.dune-package
+(lang dune 3.17)
+(name Proj_GraphDB)
+(sections (lib .) (bin ../../bin))
+(files (lib (META dune-package opam)) (bin (Proj_GraphDB.exe)))

@@ -4,5 +4,5 @@ lib: [
   "_build/install/default/lib/Proj_GraphDB/opam"
 ]
 bin: [
-  "_build/install/default/bin/Proj_GraphDB"
+  "_build/install/default/bin/Proj_GraphDB.exe"
 ]
