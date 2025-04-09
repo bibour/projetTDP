@@ -59,6 +59,7 @@ let run_interactive () =
  *)
 let run_file fn = 
   let p = run_parser_error_reporting (Some fn) in
+  Printf.printf "%s\n" (Lang.show_prog p);
   let np = Typing.typecheck true (Instr.normalize_prog p) in 
   let State(g, tab, _mn) = Sem.exec np in 
   Printf.printf "%s\n" (Sem.show_db_graph_struct g);

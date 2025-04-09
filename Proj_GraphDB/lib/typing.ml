@@ -46,7 +46,6 @@ let attrib_tp (DBN(_,attrib)) fn= List.assoc_opt fn attrib
 
 (*ectrait les types de noeud de la liste des déclarations*)
 let nt_list ntdecls= (List.map (fun (DBN(n, _)) -> n) ntdecls)
-
 let rt_list rtdecls=(List.map(fun(DBR(n1,r,n2))->(n1,r,n2)) rtdecls)
 
 (* retoçurne true si il n'y a pas de doublons dans la liste*)
@@ -122,6 +121,7 @@ let check_expr e et env : tc_result =
     | IActOnNode (act, vn, lb) -> 
         let (DBG(ntdecls, _)) = env.types in
         (* Le type de nœud doit exister *)
+        
         if List.exists (fun (DBN(lbl, _)) -> lbl = lb) ntdecls then
           match act with
           | MatchAct ->

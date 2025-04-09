@@ -59,7 +59,7 @@ npattern:
 
 delete_pattern:
 | n = separated_list(COMMA, IDENTIFIER) { DeleteNodes n}
-| r = separated_list(COMMA, rpattern) { DeleteRels r }
+/*| r = separated_list(COMMA, rpattern) { DeleteRels r }*/
 
 rpattern:
 v1 = IDENTIFIER; SUB; LBRACKET; COLON; label = IDENTIFIER; RBRACKET; ARROW; v2 = IDENTIFIER { (v1, label, v2) }
@@ -92,6 +92,7 @@ expr:
 | e1 = expr; EQ; e2=expr { BinOp(BCompar BCeq, e1, e2) }
 | e1 = expr; GE; e2=expr { BinOp(BCompar BCge, e1, e2) }
 | e1 = expr; GT; e2=expr { BinOp(BCompar BCgt, e1, e2) }
+| e1 = expr; LE; e2=expr { BinOp(BCompar BCle, e1, e2) }
 | e1 = expr; LT; e2=expr { BinOp(BCompar BClt, e1, e2) }
 | e1 = expr; NE; e2=expr { BinOp(BCompar BCne, e1, e2) }
 | e1 = expr; BLAND; e2=expr { BinOp(BLogic BLand, e1, e2) }

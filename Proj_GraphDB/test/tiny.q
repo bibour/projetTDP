@@ -1,6 +1,9 @@
 (:A {})
 (:B {})
 
-create (a:A)
-create (b:B)
 
+
+
+
+create (a:G)
+create (b:B)
