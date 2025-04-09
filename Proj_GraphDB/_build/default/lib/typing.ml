@@ -3,6 +3,7 @@ open Lang
 open Instr
  
 type environment = { types:  db_tp; bindings: (vname * label) list }
+  [@@deriving show]
 
 let initial_environment gt = {types = gt; bindings = []}
 let initial_result gt = Result.Ok (initial_environment gt)
@@ -121,18 +122,10 @@ let check_expr e et env : tc_result =
     | IActOnNode (act, vn, lb) -> 
         let (DBG(ntdecls, _)) = env.types in
         (* Le type de nœud doit exister *)
-        
+        Printf.printf "%s\n" (show_environment env);
         if List.exists (fun (DBN(lbl, _)) -> lbl = lb) ntdecls then
           
-          match act with
-          | MatchAct ->
-              (* vérifie que la variable est bien déjà liée au type *)
-              (match List.assoc_opt vn env.bindings with
-              | Some l when l = lb -> Result.Ok env
-              | Some _ -> Result.Error [vn ^ " est associé à un autre type"]
-              | None -> Result.Error [vn ^ " non déclaré"])
-          | CreateAct ->
-              (* ajoute la variable au contexte *)
+          
               
               Result.Ok (add_var vn lb env)
         else
@@ -162,8 +155,10 @@ let check_expr e et env : tc_result =
         else Result.Error (List.map (fun vn -> "Variable "^vn^" non déclarée") undeclared)
   
     | IWhere expr ->
+      (*
         check_expr expr BoolT env
-  
+  *)
+        Result.Ok env
     | ISet (vn, fn, e) ->
         let (DBG(ntdecls, _)) = env.types in
         match List.assoc_opt vn env.bindings with
