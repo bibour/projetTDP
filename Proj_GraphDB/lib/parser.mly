@@ -61,9 +61,10 @@ delete_pattern:
 | n = separated_list(COMMA, IDENTIFIER) { DeleteNodes n}
 /*| r = separated_list(COMMA, rpattern) { DeleteRels r }*/
 
+/*
 rpattern:
 v1 = IDENTIFIER; SUB; LBRACKET; COLON; label = IDENTIFIER; RBRACKET; ARROW; v2 = IDENTIFIER { (v1, label, v2) }
-
+*/
 attrib_assign_pattern:
 v = IDENTIFIER; DOT; attr = IDENTIFIER; EQ; e = expr { (v, attr, e) }
 

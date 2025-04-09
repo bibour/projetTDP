@@ -123,6 +123,7 @@ let check_expr e et env : tc_result =
         (* Le type de nœud doit exister *)
         
         if List.exists (fun (DBN(lbl, _)) -> lbl = lb) ntdecls then
+          
           match act with
           | MatchAct ->
               (* vérifie que la variable est bien déjà liée au type *)
@@ -132,6 +133,7 @@ let check_expr e et env : tc_result =
               | None -> Result.Error [vn ^ " non déclaré"])
           | CreateAct ->
               (* ajoute la variable au contexte *)
+              
               Result.Ok (add_var vn lb env)
         else
           Result.Error ["Type de nœud non déclaré: " ^ lb]
@@ -183,12 +185,13 @@ let tc_instrs_stop gt instrs : tc_result =
 
 
   (* TODO: typecheck instructions *)
-let typecheck_instructions continue gt instrs np = 
-  let r = Result.Ok initial_environment in   (* call to real typechecker here *)
-  match r with
-  | Result.Error etc -> Printf.printf "%s\n" (String.concat "\n" etc); 
-                        failwith "stopped"
-  |_ -> np
+  let typecheck_instructions continue gt instrs np = 
+    let r = tc_instrs_stop gt instrs in
+    match r with
+    | Result.Error etc -> 
+        Printf.printf "%s\n" (String.concat "\n" etc); 
+        failwith "stopped"
+    | _ -> np
   
 
   (* Typecheck program; 

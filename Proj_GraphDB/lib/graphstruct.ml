@@ -33,3 +33,6 @@ let add_rel_to_graph (DBG (nds, rls)) r =
 
 let find_node_with_id nid g = 
     List.find (fun (DBN(n, _)) -> n = nid) (nodes_of_graph g)
+
+let get_all_nodes = function
+  | DBG(nodes, _) -> nodes

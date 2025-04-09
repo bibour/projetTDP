@@ -60,8 +60,44 @@ let create_node v lb (State(g, tab, mn)) =
 
 
 (* TODO: complete following definition *)
-let exec_instr (State (graph, table, next_id) as state) instr =
-      state;;
+let index_of x lst =
+  let rec aux i = function
+    | [] -> failwith ("Variable not found: " ^ x)
+    | y::ys -> if x = y then i else aux (i+1) ys
+  in aux 0 lst
+
+let exec_instr s = function
+  | IActOnNode (CreateAct, v, lb) -> create_node v lb s
+  (*
+  | IActOnNode (MatchAct, vn, lb) ->
+    let Table (vns, lns) = tab in
+    let matching_nodes =
+      List.filter_map
+        (fun (DBNode (nid, (lbl', _))) ->
+          if lbl' = lb then Some nid else None)
+        (Graphstruct.get_all_nodes g)
+    in
+    let new_tab = add_var_mult_nodes_to_table vn matching_nodes tab in
+    State (g, new_tab, mn)
+
+  | IActOnRel (CreateAct, v1, r, v2) ->
+      let State (g, Table (vns, lns), mn) = s in
+      let idx1 = index_of v1 vns in
+      let idx2 = index_of v2 vns in
+      let rels =
+        List.map (fun ln ->
+          let n1 = List.nth ln idx1 in
+          let n2 = List.nth ln idx2 in
+          (n1, r, n2)
+        ) lns
+      in
+      let g' = add_edges_to_graph rels g in
+      State (g', Table (vns, lns), mn)
+
+  | IReturn _ -> s
+    *)
+  | _ -> s
+
   
 
 let exec (NormProg(_tps, NormQuery(instrs))) = 
